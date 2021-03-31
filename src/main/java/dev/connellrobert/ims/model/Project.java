@@ -31,6 +31,6 @@ public class Project {
     private Set<Issue> issues;
 
 
-    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
-    private Set<User> workers;
+    @OneToMany(mappedBy = "projects")
+    Set<UserProjectMap> users;
 }

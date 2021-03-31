@@ -20,15 +20,8 @@ public class User {
 
     private String username;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_projects",
-            joinColumns = {
-                    @JoinColumn(name = "userId")},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "projectId")}
-    )
-    private Set<Project> projects;
+    @OneToMany(mappedBy = "user")
+    private Set<UserProjectMap> projects;
 
 
 }
