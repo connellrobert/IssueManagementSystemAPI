@@ -1,29 +1,54 @@
 package dev.connellrobert.ims.controller;
 
-import dev.connellrobert.ims.model.Project;
-import dev.connellrobert.ims.repo.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import dev.connellrobert.ims.dto.ProjectDTO;
+import dev.connellrobert.ims.model.Project;
+import dev.connellrobert.ims.service.PersistenceService;
+import dev.connellrobert.ims.service.QueryService;
 
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
 
-    @Autowired
-    private ProjectRepository projectRepo;
+	@Autowired
+	private QueryService query;
 
-    @GetMapping
-    public List<Project> getAllProjects(){
-        return projectRepo.findAll();
-    }
+	@Autowired
+	private PersistenceService persister;
 
-    @GetMapping(value = "/${id}")
-    public Project findProjectById(@RequestParam("id") long id){return projectRepo.findById(id).get();}
+	@GetMapping
+	public Page<ProjectDTO> getAllProjects(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "offset", required = false, defaultValue = "25") int offset) {
+		return query.findAllProjects(page, offset);
+	}
 
-    @PostMapping
-    public Project createProject(@RequestBody Project project){return projectRepo.save(project);}
+	@GetMapping(value = "/{name}")
+	public ProjectDTO findProjectById(@PathVariable("name") String name) {
+		System.out.println(name);
+		System.out.println("called get mapping");
+		return query.findProjectByName(name);
+	}
 
+	@PostMapping
+	public ProjectDTO createProject(@RequestBody Project project) {
+		return persister.saveProject(project);
+	}
+
+	@DeleteMapping("/{name}")
+	public ProjectDTO deleteProject(@PathVariable("name") String name) {
+		ProjectDTO dto = query.findProjectByName(name);
+		persister.deleteProject(name);
+		return dto;
+	}
 
 }

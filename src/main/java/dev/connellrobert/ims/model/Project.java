@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"projectName"})})
 public class Project {
 
     @Id
@@ -20,17 +21,18 @@ public class Project {
 
     @NotNull
     private String projectName;
+    
+    private String projectDescription;
 
     //@Pattern for #.#
     private double currentReleaseVersion;
 
     private double currentDevelopmentVersion;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "project_issues")
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Issue> issues;
 
 
-    @OneToMany(mappedBy = "projects")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     Set<UserProjectMap> users;
 }

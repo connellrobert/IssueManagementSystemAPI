@@ -20,7 +20,7 @@ public class User {
 
     private String username;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     private Set<UserProjectMap> projects;
 
 
