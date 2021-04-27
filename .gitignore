@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Method: POST");
+header("Access-Control-Allow-Headers: Content-Type, Origin");
