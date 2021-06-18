@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
-public class User {
+public class IMSUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

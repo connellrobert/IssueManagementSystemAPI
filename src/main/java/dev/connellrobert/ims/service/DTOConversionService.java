@@ -10,7 +10,7 @@ import dev.connellrobert.ims.dto.ProjectDTO;
 import dev.connellrobert.ims.dto.UserProjectDTO;
 import dev.connellrobert.ims.model.Issue;
 import dev.connellrobert.ims.model.Project;
-import dev.connellrobert.ims.model.User;
+import dev.connellrobert.ims.model.IMSUser;
 import dev.connellrobert.ims.model.UserProjectMap;
 import lombok.Data;
 
@@ -25,7 +25,7 @@ public class DTOConversionService {
 		return dto;
 	};
 
-	private Function<User, UserProjectDTO> userProjectConversion = u -> {
+	private Function<IMSUser, UserProjectDTO> userProjectConversion = u -> {
 		UserProjectDTO dto = new UserProjectDTO();
 		dto.setUsername(u.getUsername());
 		dto.setProjects(u.getProjects().stream().map(userProjectMapDtoConversion).collect(Collectors.toSet()));

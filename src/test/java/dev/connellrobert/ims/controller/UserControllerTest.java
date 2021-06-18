@@ -2,9 +2,9 @@ package dev.connellrobert.ims.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.connellrobert.ims.IssueManagementApiApplication;
+import dev.connellrobert.ims.model.IMSUser;
 import dev.connellrobert.ims.model.Issue;
 import dev.connellrobert.ims.model.Project;
-import dev.connellrobert.ims.model.User;
 import dev.connellrobert.ims.model.UserProjectMap;
 import dev.connellrobert.ims.model.UserProjectRelationship;
 import dev.connellrobert.ims.model.UserRole;
@@ -46,10 +46,10 @@ public class UserControllerTest {
                 .apply(documentationConfiguration(provider))
                 .build();
         
-        User u = new User(1, "admin", new HashSet<UserProjectMap>());
+        IMSUser u = new IMSUser(1, "admin", new HashSet<UserProjectMap>());
 //        u.getProjects().add(new UserProjectMap(new UserProjectRelationship(1, 1), u, new Project(1, "marketing proj", 1, 1, new HashSet<Issue>(), new HashSet<UserProjectMap>()), UserRole.ADMIN));
         
-        User newU = userRepo.save(u);
+        IMSUser newU = userRepo.save(u);
     }
 
     @Test

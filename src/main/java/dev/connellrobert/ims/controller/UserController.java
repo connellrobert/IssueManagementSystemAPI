@@ -1,5 +1,6 @@
 package dev.connellrobert.ims.controller;
 
+import dev.connellrobert.ims.model.IMSUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.connellrobert.ims.dto.UserProjectDTO;
 import dev.connellrobert.ims.dto.UserSubscribeDTO;
-import dev.connellrobert.ims.model.User;
 import dev.connellrobert.ims.service.PersistenceService;
 import dev.connellrobert.ims.service.QueryService;
 
@@ -40,7 +40,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public User createUser(@RequestBody User u) {
+	public IMSUser createUser(@RequestBody IMSUser u) {
 		return persister.saveUser(u);
 	}
 	

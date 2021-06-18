@@ -18,7 +18,7 @@ public class UserProjectMap {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
-    private User user;
+    private IMSUser user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @MapsId("projectId")

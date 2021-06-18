@@ -12,7 +12,7 @@ import dev.connellrobert.ims.dto.ProjectDTO;
 import dev.connellrobert.ims.dto.UserProjectDTO;
 import dev.connellrobert.ims.model.Issue;
 import dev.connellrobert.ims.model.Project;
-import dev.connellrobert.ims.model.User;
+import dev.connellrobert.ims.model.IMSUser;
 import dev.connellrobert.ims.repo.IssueRepository;
 import dev.connellrobert.ims.repo.ProjectRepository;
 import dev.connellrobert.ims.repo.UserRepository;
@@ -34,13 +34,13 @@ public class QueryService {
 
 	
 	public Page<UserProjectDTO> findAllUsers(int page, int offset) {
-		Page<User> users = userRepo.findAll(PageRequest.of(page, offset));
+		Page<IMSUser> users = userRepo.findAll(PageRequest.of(page, offset));
 		Page<UserProjectDTO> dtos = users.map(dtoConversion.getUserProjectConversion());
 		return dtos;
 	}
 
 	public UserProjectDTO findUserByUsername(String name) {
-		User u = userRepo.findByUsername(name).orElseGet(() -> new User());
+		IMSUser u = userRepo.findByUsername(name).orElseGet(() -> new IMSUser());
 		UserProjectDTO dto = new UserProjectDTO();
 		dto.setUsername(u.getUsername());
 		dto.setProjects(u.getProjects().stream().map(dtoConversion.getUserProjectMapDtoConversion()).collect(Collectors.toSet()));

@@ -4,6 +4,11 @@ COPY . /app
 WORKDIR /app
 RUN mvn clean package
 # Provide environment variables for SERVER_PORT, DATASOURCE_URL, DATASOURCE_USERNAME, DATASOURCE_PASSWORD
+# ENV DATASOURCE_URL=
+# ENV DATASOURCE_USERNAME=
+# ENV DATASOURCE_PASSWORD=
+# ENV SERVER_PORT=
+
 FROM openjdk:8
 WORKDIR /root
 COPY --from=0 /app/target/IssueManagementAPI-1.0.0.jar app.jar
